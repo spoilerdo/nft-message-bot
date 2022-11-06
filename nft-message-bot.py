@@ -1,8 +1,43 @@
+import os
 import tweepy
 import json
 from time import sleep
 from credentials import *
-from config import MAX_RESULT, QUERY, MESSAGE, SLEEP_TIME
+from config import *
+
+
+def getenv(key):
+    if (os.getenv(key)):
+        return os.getenv(key)
+    else:
+        print(f'environment variable with key: {key} does not exist')
+        return ''
+
+
+print('initializing system...')
+
+bearer_token = ''
+consumer_key = ''
+consumer_secret = ''
+access_token = ''
+access_token_secret = ''
+
+if os.getenv('BEARER_TOKEN'):
+    print('running in pipeline environment')
+
+    bearer_token = getenv('BEARER_TOKEN')
+    consumer_key = getenv('CONSUMER_KEY')
+    consumer_secret = getenv('CONSUMER_SECRET')
+    access_token = getenv('ACCESS_TOKEN')
+    access_token_secret = getenv('ACCESS_TOKEN_SECRET')
+else:
+    print('running in local environment')
+
+    bearer_token = BEARER_TOKEN
+    consumer_key = CONSUMER_KEY
+    consumer_secret = CONSUMER_SECRET
+    access_token = ACCESS_TOKEN
+    access_token_secret = ACCESS_TOKEN_SECRET
 
 client = tweepy.Client(bearer_token, consumer_key,
                        consumer_secret, access_token, access_token_secret)
