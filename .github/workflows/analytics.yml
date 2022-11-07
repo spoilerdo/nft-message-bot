@@ -1,0 +1,24 @@
+name: NFT Twitter Bot Metrics
+on:
+  # Schedule updates every other day on the odd days
+  schedule: [{ cron: "0 0 2-30/2 * *" }]
+jobs:
+  analytics:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout repo content
+        uses: actions/checkout@v2
+      - name: setup python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.11
+      - name: analyze data
+        run: |
+          python nft-analysis.py
+      - name: committing data
+        uses: actions/checkout@v2
+        run: |
+          git config --global user.name 'NFT bot'
+          git config --global user.email 'nft@bot.com'
+          git commit -am "Analysis report"
+          git push

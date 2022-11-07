@@ -1,0 +1,23 @@
+name: NFT Twitter Bot
+on:
+  # Schedule updates every other day on the odd days
+  schedule: [{ cron: "0 0 1-31/2 * *" }]
+jobs:
+  nft-bot:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout repo content
+        uses: actions/checkout@v2
+      - name: setup python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.11
+      - name: execute bot
+        run: |
+          python nft-message-bot.py
+        env:
+          BEARER_TOKEN: ${{ secrets.BEARER_TOKEN }}
+          CONSUMER_KEY: ${{ secrets.CONSUMER_KEY }}
+          CONSUMER_SECRET: ${{ secrets.CONSUMER_SECRET }}
+          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          ACCESS_TOKEN_SECRET: ${{ secrets.ACCESS_TOKEN_SECRET }}
