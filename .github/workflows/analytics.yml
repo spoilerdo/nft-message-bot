@@ -6,8 +6,8 @@ jobs:
   analytics:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
       - name: checkout repo content
-        uses: actions/checkout@v2
       - name: setup python
         uses: actions/setup-python@v2
         with:
@@ -16,7 +16,6 @@ jobs:
         run: |
           python nft-analysis.py
       - name: committing data
-        uses: actions/checkout@v2
         run: |
           git config --global user.name 'NFT bot'
           git config --global user.email 'nft@bot.com'
