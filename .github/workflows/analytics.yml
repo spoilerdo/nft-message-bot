@@ -11,6 +11,9 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: 3.11
+          cache: 'pip'
+      - name: installing python dependencies
+        run: pip install -r requirements.txt
       - name: analyze data
         run: |
           python nft-analysis.py
