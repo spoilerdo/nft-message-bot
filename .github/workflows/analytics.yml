@@ -1,7 +1,7 @@
 name: NFT Twitter Bot Metrics
 on:
   # Schedule updates every other day on the odd days
-  schedule: [{ cron: "0 0 1-31/2 * *" }]
+  schedule: [{ cron: "0 0 2-30/2 * *" }]
 jobs:
   analytics:
     runs-on: ubuntu-latest

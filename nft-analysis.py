@@ -16,25 +16,26 @@ for nft in NFTS:
 
         print('retrieving data...')
 
-        views_elements = soup.find_all(
-            "div", {"class": "sc-29427738-0 sc-61e56300-0 cbAydH gnxLuq"}, limit=1)
-        raw_views_data = views_elements[0].contents[1]
+        data_elements = soup.find_all(
+            "section", {"class": "item--counts"}, limit=1)
+        try:
+            raw_views_data = data_elements[0].contents[0].contents[1].contents[0]
+            raw_favorite_data = data_elements[0].contents[1].contents[1].contents[0]
 
-        favorite_elements = soup.find_all("button", {
-            "class": "sc-b267fe84-0 cRVARX sc-29427738-0 sc-61e56300-0 cbAydH fvPiUS"}, limit=1)
-        raw_favorite_data = favorite_elements[0].contents[1]
+            views_data = raw_views_data.split()[0]
+            favorite_data = raw_favorite_data.split()[0]
 
-        views_data = raw_views_data.split()[0]
-        favorite_data = raw_favorite_data.split()[0]
+            print(f'saving data to {nft.name}-analysis.csv')
 
-        print(f'saving data to {nft.name}-analysis.csv')
+            with open(f'analyses/{nft.name}-analysis.csv', 'a', encoding='UTF8', newline='') as f:
+                message = MESSAGE.replace('${{SHORT_LINK}}', nft.short_url)
 
-        with open(f'{nft.name}-analysis.csv', 'a', encoding='UTF8', newline='') as f:
-            message = MESSAGE.replace('${{SHORT_LINK}}', nft.short_url)
-
-            writer = csv.writer(f, delimiter=',')
-            writer.writerow([date.today(), QUERY, MAX_RESULT,
-                            message, views_data, favorite_data])
+                writer = csv.writer(f, delimiter=',')
+                writer.writerow([date.today(), QUERY, MAX_RESULT,
+                                message, views_data, favorite_data])
+        except:
+            print('unable to scrape!! OpenSea has updated their site')
+            break
 
     except StopIteration:
         break
