@@ -16,11 +16,11 @@ jobs:
       - name: installing python dependencies
         run: pip install -r requirements.txt
       - name: execute bot
-        run: |
-          python nft-message-bot.py
         env:
           BEARER_TOKEN: ${{ secrets.BEARER_TOKEN }}
           CONSUMER_KEY: ${{ secrets.CONSUMER_KEY }}
           CONSUMER_SECRET: ${{ secrets.CONSUMER_SECRET }}
           ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
           ACCESS_TOKEN_SECRET: ${{ secrets.ACCESS_TOKEN_SECRET }}
+        run: |
+          python nft-message-bot.py

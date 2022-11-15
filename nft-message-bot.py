@@ -6,8 +6,9 @@ from config import *
 
 
 def getenv(key):
-    if (os.getenv(key)):
-        return os.getenv(key)
+    secret = os.environ.get(key)
+    if (secret):
+        return secret
     else:
         print(f'environment variable with key: {key} does not exist')
         return ''
@@ -21,7 +22,7 @@ consumer_secret = ''
 access_token = ''
 access_token_secret = ''
 
-if os.getenv('BEARER_TOKEN'):
+if os.getenv('CI'):
     print('running in pipeline environment')
 
     bearer_token = getenv('BEARER_TOKEN')
