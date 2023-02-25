@@ -45,16 +45,21 @@ client = tweepy.Client(bearer_token, consumer_key,
 print('retrieving recent tweets...')
 
 tweets = client.search_recent_tweets(
-    QUERY, max_results=MAX_RESULT).data  # type: ignore
+    QUERY, max_results=MAX_RESULT, sort_order='relevancy').data  # type: ignore
 
 print(f'retrieved {tweets.count}')
+
+if DAYS >= MAX_DAYS
+    INDEX += 1
+
+DAYS += 1
 
 for tweet in tweets:
     try:
         for nft in NFTS:
             print(f'tweeting for: {nft.name} NFT!')
             try:
-                message = MESSAGE.replace('${{SHORT_LINK}}', nft.short_url)
+                message = MESSAGES[INDEX].replace('${{SHORT_LINK}}', nft.short_url)
                 client.create_tweet(
                     text=message, in_reply_to_tweet_id=tweet.id)
             except StopIteration:
