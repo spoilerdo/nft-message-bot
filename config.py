@@ -1,6 +1,6 @@
 from nft import Nft
 
-QUERY = 'Drop your #NFT (#NFT OR #NFTDrop) min_faves:100'
+QUERY = 'Drop your #NFT (#NFT OR #NFTDrop)'
 MAX_RESULT = 100
 MESSAGE = 'These NFTs are drawings from a traveler going to a strange land ${{SHORT_LINK}}'
 SLEEP_TIME = 1000
